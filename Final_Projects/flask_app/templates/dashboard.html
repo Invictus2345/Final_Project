@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<style>
+    table{
+        border: solid black 2px;
+        border-collapse: collapse;
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+    }
+    td{
+        border: solid black 2px;
+        border-collapse: collapse;
+    }
+    th{
+        border: solid black 2px;
+        border-collapse: collapse;
+    }
+    
+    tbody tr:nth-child(odd) {
+        background-color: gray;
+    }
+    
+    tbody tr:nth-child(even) {
+        background-color: lightgray;
+    }
+    
+    tbody tr {
+        background-image: url(noise.png);
+    }
+    
+    table {
+        background-color: dodgerblue;
+    }
+    #tags{
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+    }
+    </style>
+
+
+<body>
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+            <span class="fs-4">
+            {% for user in users%}
+                {% if please_work == user.id %}
+                    <H1>Welcome, {{user.first_name}}</H1>
+                {% endif %}
+            {% endfor %}
+            </span>
+            </a>
+    
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a href="/dashboard" class="nav-link active" aria-current="page">All Homes</a></li>
+                <li class="nav-item"><a href="/create_page" class="nav-link">Add A Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Compare Two Homes</a></li>
+                <li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+            </ul>
+        </header>
+    </div>
+
+    <p>homes for sale</p>  <a href="logout">Logout</a>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{message}}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Location</th>
+                <th>Price</th>
+                <th>Style of Home</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for home in homes %}
+            <tr>
+                <td>{{home.location}}</td>
+                <td>{{home.price}}</td>
+                <td>{{home.style_of_home}}</td>
+                {% if home.id not in likes|map(attribute="home_id")%}
+                <td>
+                    {% if home.user_id != session.user_id %}
+                    <a href="/view_home/{{home.id}}"> View </a>
+                    {% endif %}
+                    |
+                    
+                    <a href="/edit_page/{{home.id}}"> Edit </a>|<a href="/delete/{{home.id}}"> Delete</a>
+                    
+                </td>
+                {%else%}
+                <td>SOLD</td>
+                {%endif%}
+            </tr>
+            <input type="hidden" name="this" value="{{home.id}}">
+            {% endfor %}
+        </tbody>
+        <tr>
+    </table>
+    <div id="tags">
+        <a href="/create_page">Add A home</a>
+        <a href="/your_purchases">Your purchases!</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+</body>
+</html>

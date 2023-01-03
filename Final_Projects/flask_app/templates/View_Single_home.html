@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #container {
+        margin: auto;
+    width: 50%;
+    border: 3px solid black;
+    padding: 10px;
+    }
+    h2{
+        margin: auto;
+    width: 50%;
+    border: 3px solid black;
+    padding: 10px;
+    }
+</style>
+
+<body>
+    <a href="/dashboard">back to homes</a>
+    <h2>${{home.price}}</h2>
+    <div id="container">
+        <p>Location: {{home.location}}</p>
+        <p>Size:{{home.size}}</p>
+        <p>Bed(s):{{home.beds}}</p>
+        <p>Bath(s): {{home.baths}}</p>
+        <p>Type of Home: {{home.style_of_home}}</p>
+        <p>HOA Fees: {{home.HOA_fees}}</p>
+        <p>Posted By: {{home.creator.first_name}}</p>
+        <button><a href="/delete2/{{home.user_id}}">Mark as Sold!</a></button>
+    </div>
+    <p></p>
+    {%for home in homes%}
+        {% if home.id not in likes|map(attribute="home_id") %}
+        <form action="/like/", method="post">
+            <input type="hidden" name="user_id" value="{{session.user_id}}">
+            <input type="hidden" name="home_id" value="{{home.id}}">
+            <input type="submit" value="Purchase">
+        </form>
+        {% else %}
+        <form action="/unlike", method="post" id="unlike">
+            <input type="hidden" name="user_id" value="{{session.user_id}}">
+            <input type="hidden" name="home_id" value="{{home.id}}">
+            <input type="submit" value="Un-Purchase">
+        </form>
+        {% endif %}
+    {%endfor%}
+    </p>
+</body>
+</html>

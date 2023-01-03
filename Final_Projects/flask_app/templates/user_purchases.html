@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    table{
+        border: solid black 2px;
+        border-collapse: collapse;
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+    }
+    td{
+        border: solid black 2px;
+        border-collapse: collapse;
+    }
+    th{
+        border: solid black 2px;
+        border-collapse: collapse;
+    }
+    
+    tbody tr:nth-child(odd) {
+        background-color: gray;
+    }
+    
+    tbody tr:nth-child(even) {
+        background-color: lightgray;
+    }
+    
+    tbody tr {
+        background-image: url(noise.png);
+    }
+    
+    table {
+        background-color: dodgerblue;
+    }
+    </style>
+    home
+<body>
+    <h1>All your purchases!</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Year</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for home in homes%}
+            <tr>
+                <td>{{home.make}}</td>
+                <td>{{home.model}}</td>
+                <td>{{home.year}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tr>
+    </table>
+    <a href="/dashboard">Back to dashboard</a>
+</body>
+</html>

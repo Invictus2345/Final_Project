@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<style>
+    body {
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxDZ08DyTMgflk5Q2tZ5qjDq_hGO6njQxTCw&usqp=CAU');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    }
+</style>
+<body>
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+            <span class="fs-4">
+                <h1>Log a Home!</h1>
+            </span>
+            </a>
+    
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a href="/dashboard" class="nav-link active" aria-current="page">All Homes</a></li>
+                <li class="nav-item"><a href="/create_page" class="nav-link">Add a Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Compare two Homes</a></li>
+                <li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+            </ul>
+        </header>
+    </div>
+
+    <div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{message}}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form action="/create_a_home", method="post">
+            <input type="hidden" name="user_id" value="{{session.user_id}}">
+            <div class="form-group">
+                <label for="image">File input</label>
+                <input type="image" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+                <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
+            </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" name="location" class="form-control" placeholder="Address">
+            </div>
+            <div class="form-group">
+                <label for="size">Size by Sqft</label>
+                <input type="number" name="size" class="form-control" placeholder="Square Footage">
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="number" name="price" class="form-control" placeholder="USD">
+            </div>
+            <div class="form-group">
+                <label for="beds">Bed(s)</label>
+                <input type="number" name="beds" class="form-control" placeholder="Bedroom Count">
+            </div>
+            <div class="form-group">
+                <label for="baths">Bath(s)</label>
+                <input type="number" name="baths" class="form-control" placeholder="Bathroom Count">
+            </div>
+            <div class="form-group">
+                <label for="style_of_home">Type of Home</label>
+                <select id="style_of_home" class="form-control" name="style_of_home">
+                    <option value="Single-Family Home">Single-Family Home</option>
+                    <option value="Semi-Detached Home">Semi-Detached Home</option>
+                    <option value="Multifamily Home">Multifamily Home</option>
+                    <option value="Condominium">Condominium</option>
+                    <option value="Co-Op">Co-Op</option>
+                    <option value="Tiny Home">Tiny Home</option>
+                    <option value="Mobile Home">Mobile Home</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="HOA_fees">HOA fees</label>
+                <input type="text" name="HOA_fees" class="form-control" placeholder="HOA fee amount or other fees">
+            </div>
+            <!-- <input type="hidden" name="user_id" value="{{session.user_id}}">
+            <label for="image">Image:</label>
+            <input type="image" name="image">
+            <label for="location">Location:</label>
+            <input type="text" name="location">
+            <label for="size">Size by Sqft</label>
+            <input type="text" name="size">
+            <label for="price">Price</label>
+            <input type="number" name="price">
+            <label for="beds">Bed(s)</label>
+            <input type="number" name="beds">
+            <label for="baths">Bath(s)</label>
+            <input type="number" name="baths">
+            <label for="style_of_home">Type of Home</label>
+            <select id="style_of_home" name="style_of_home">
+                <option value="Single-Family Home">Single-Family Home</option>
+                <option value="Semi-Detached Home">Semi-Detached Home</option>
+                <option value="Multifamily Home">Multifamily Home</option>
+                <option value="Condominium">Condominium</option>
+                <option value="Co-Op">Co-Op</option>
+                <option value="Tiny Home">Tiny Home</option>
+                <option value="Mobile Home">Mobile Home</option>
+            </select>
+            <label for="HOA_fees">HOA fees?</label>
+            <select id="HOA_fees" name="HOA_fees">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select> -->
+            <input type="submit" value="submit">
+        </form>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <h1>Edit {{home.style_of_home}}</h1>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/logout">logout</a>
+    </div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{message}}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    {% for home in home %}
+    <form action="/update_home", method="post">
+        <input type="hidden" name="id" value="{{home.id}}">
+        <label for="location">Location:</label>
+        <input type="text" name="location" value="{{home.location}}">
+        <label for="size">Size by Sqft</label>
+        <input type="text" name="size" value="{{home.size}}">
+        <label for="price">Price</label>
+        <input type="number" name="price" value="{{home.price}}">
+        <label for="beds">Bed(s)</label>
+        <input type="number" name="beds" value="{{home.beds}}">
+        <label for="baths">Bath(s)</label>
+        <input type="number" name="baths" value="{{home.baths}}">
+        <label for="style_of_home">Type of Home</label>
+        <select id="style_of_home" name="style_of_home" >
+            <option value="Single-Family Home">Single-Family Home</option>
+            <option value="Semi-Detached Home">Semi-Detached Home</option>
+            <option value="Multifamily Home">Multifamily Home</option>
+            <option value="Condominium">Condominium</option>
+            <option value="Co-Op">Co-Op</option>
+            <option value="Tiny Home">Tiny Home</option>
+            <option value="Mobile Home">Mobile Home</option>
+        </select>
+        <label for="HOA_fees">HOA fees?</label>
+        <select id="HOA_fees" name="HOA_fees">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+        <input type="submit" value="submit">
+    </form>
+    {% endfor %}
+</body>
+</html>
